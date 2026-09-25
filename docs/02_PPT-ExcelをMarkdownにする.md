@@ -32,3 +32,19 @@ docling 関数一覧.xlsx --to md --output out/
 
 - **Docling の既定 OCR は中国製（RapidOCR）**で、初回に中国のサーバーからモデルを取得する。文字と表だけなら OCR は動かないが、画像・スキャン PDF を通すときは必ず `--ocr-engine` を指定する（Mac: `ocrmac`、Linux/Windows: `easyocr` か `tesseract`）
 - ネットに繋がらない環境へは、ネットのある PC で `pip download docling`（画像も扱うなら OCR モデルも）を取得して持ち込む
+
+## OCR の選択肢（図・スキャン PDF を読むとき）
+
+Nemotron-3-Super は画像を読めない。文字と表だけなら OCR は不要。図を読むときは別のものを使う。
+
+| 選択肢 | 費用 | 日本語 | 外部に出るか | 先方環境で |
+|---|---|---|---|---|
+| **Tesseract**（Google 発 OSS） | 無料 | 中 | 出ない | ◎ Linux/Windows の第一候補 |
+| **EasyOCR**（タイ発 OSS） | 無料 | 中〜低（実測：誤字あり） | 出ない | ○ |
+| Apple Vision | 無料 | 高（実測：記号は崩れる） | 出ない | △ Mac 限定 |
+| RapidOCR / PaddleOCR（中国） | 無料 | 高 | 出ない | **✕ 中華系。Docling の既定** |
+| **Gemma 3**（Google・画像対応） | 無料（GPU） | 図の意味まで説明できる。要検証 | 出ない | ◎ DGX Spark に同居できる見込み |
+| NVIDIA の文書読み取りモデル | 無料（GPU） | 英語中心。要検証 | 出ない | ○ |
+| クラウド OCR | 有料 | 最高 | **出る** | **✕** |
+
+使い方：安い OCR で文字を抜き、必要なら Gemma 3 で図の意味を説明させ、Nemotron に本文と突き合わせて Mermaid に書き直させる。**どの方式でも記号・添字は人が一度見る。** 実測したのは Apple Vision と EasyOCR のみで、他は要検証。

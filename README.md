@@ -1,0 +1,49 @@
+# ai-driven-spec-demo — AI駆動開発に使える仕様書の作り方
+
+手書き（PowerPoint / Excel）の仕様書を、オンプレのローカルLLM（**Nemotron-3-Super ＋ OpenCode**）がそのまま実装・単体試験に使える形にする方法。実際に動かした入力・出力・ログをすべて置いている（2026-09-24 実施）。
+
+## 結論（3行）
+
+1. PowerPoint / Excel は、**文字と表なら一瞬で AI が読める形（Markdown）になる**。図だけ人が確認する
+2. 「**見本を1本添える・章立てを指定する・決めていないことは【要確認】と書かせる**」で、Nemotron でも実装に使える仕様書が書ける（1本 3〜5分）
+3. その仕様書を**一字も直さず**渡して、**実装 → 単体試験 24 件全件合格 → 行カバレッジ 97.1%** まで人手ゼロで到達した（27分）
+
+## 流れ
+
+```
+PowerPoint / Excel ──(Docling)──▶ Markdown ──(Nemotron)──▶ 仕様書 ──(Nemotron ＋ 固定の手順)──▶ 実装・単体試験
+```
+
+| ステップ | やること | 場所 |
+|---|---|---|
+| ① 変換 | `docling 仕様書.pptx --to md` の1行 | [pattern1_legacy_to_md/](pattern1_legacy_to_md/) ／ [docs/02](docs/02_PPT-ExcelをMarkdownにする.md) |
+| ② 仕様書 | 見本と章立てを添えて Nemotron に書かせる | [pattern2_req_to_spec/](pattern2_req_to_spec/) ／ [docs/01](docs/01_仕様書の書き方.md)・[docs/03](docs/03_プロンプトと実行.md) |
+| ③ 実装 | 仕様書＋ルール（AGENTS.md）＋固定の Makefile で Nemotron に実装させ、試験・カバレッジまで回す | [pattern3_impl/](pattern3_impl/) |
+
+## 結果
+
+| 工程 | 時間 | 結果 |
+|---|---|---|
+| PPT 8枚・Excel 3シート → Markdown | 0.1 秒 | 文章・表は無修正で使える。図は画像のまま（OCR ＋人の確認） |
+| 要件 10 行 → 仕様書 | 2 分 51 秒 | 10 章・試験観点 24。設計判断とシグネチャの自己矛盾が 1 つ |
+| 要件定義書（PPT 8枚）→ 仕様書 | 2 分 40 秒 | 10 章・試験観点 20・要件トレース表。**要件に方針が書いてあったので矛盾なし** |
+| 既存仕様書（PPT/Excel）→ 仕様書 | 5 分 17 秒 | 原資料の試験観点を欠落なく引き継ぎ、補った所に【要確認】18 か所。図は文法エラー（引用符で直る） |
+| 仕様書 → 実装・試験・カバレッジ | 26 分 40 秒 | **24 / 24 合格、行 97.1%・関数 100%**。クリーンビルドで再確認済み |
+
+費用は合計約 17 円（OpenRouter 経由）。オンプレなら電気代のみ。**速度は実機で要計測。**
+
+## Claude との比較
+
+同じ指示で Claude にも書かせた。差は**試験観点の量（71 vs 24）と補足の丁寧さ**で、正しさの差ではない。Nemotron の弱点は一貫性（自己矛盾）と図の文法。**要件側に方針を1枚足す**／**生成後に自己点検の1ターンを足す**、で潰せる。→ [pattern2_req_to_spec/COMPARISON.md](pattern2_req_to_spec/COMPARISON.md)
+
+## 注意
+
+1. Docling の既定 OCR は中国製（RapidOCR）。画像・スキャン PDF を読むときはエンジンを明示する（Mac: `ocrmac`、Linux/Windows: `easyocr` / `tesseract`）。文字と表だけなら OCR は動かない
+2. 仕様書の穴はコードの穴になる。AI が書いた仕様書は「シグネチャ」と「無意味な項目」だけ人が見る
+3. AI の完了報告は楽観的。試験とカバレッジは固定の Makefile で人が再実行する
+4. 数値はクラウド経由。実資料は使っていない（すべてダミー）
+
+## 読む順
+
+[docs/01 仕様書の書き方](docs/01_仕様書の書き方.md) → [docs/02 変換手順](docs/02_PPT-ExcelをMarkdownにする.md) → [docs/03 プロンプトと実行](docs/03_プロンプトと実行.md) → [比較](pattern2_req_to_spec/COMPARISON.md)
+お客様にそのまま渡す体裁 → [お客様向け/](お客様向け/)　　経緯・数字・ハマりどころを全部書いた版 → [ai-driven-spec-demo](https://github.com/ARKLET-1111/ai-driven-spec-demo)

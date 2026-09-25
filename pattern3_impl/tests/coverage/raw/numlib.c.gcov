@@ -1,0 +1,116 @@
+        -:    0:Source:numlib.c
+        -:    0:Graph:build/numlib.gcno
+        -:    0:Data:build/numlib.gcda
+        -:    0:Runs:2
+        -:    0:Programs:1
+        -:    1:#include "numlib.h"
+        -:    2:#include <stddef.h>
+        -:    3:#include <stdint.h>
+        -:    4:
+       18:    5:int bubble_sort_i32(int32_t *arr, size_t n)
+        -:    6:{
+        -:    7:    /* Check for NULL pointer when n > 0 */
+       18:    8:    if (arr == NULL && n > 0) {
+        2:    9:        return NUMILIB_ERR_NULL_PTR;
+        -:   10:    }
+        -:   11:    /* Check for invalid n (negative) - though size_t is unsigned, keep for future */
+       16:   12:    if (n < 0) {
+    #####:   13:        return NUMILIB_ERR_INVALID_N;
+        -:   14:    }
+        -:   15:    /* If n == 0, do nothing and return success */
+       16:   16:    if (n == 0) {
+        2:   17:        return NUMILIB_SUCCESS;
+        -:   18:    }
+        -:   19:
+        -:   20:    /* Bubble sort (stable) */
+     2026:   21:    for (size_t i = 0; i < n - 1; i++) {
+     2020:   22:        int swapped = 0;
+  1001076:   23:        for (size_t j = 0; j < n - i - 1; j++) {
+   999056:   24:            if (arr[j] > arr[j + 1]) {
+        -:   25:                /* Swap arr[j] and arr[j+1] */
+   999026:   26:                int32_t temp = arr[j];
+   999026:   27:                arr[j] = arr[j + 1];
+   999026:   28:                arr[j + 1] = temp;
+   999026:   29:                swapped = 1;
+   999026:   30:            }
+   999056:   31:        }
+        -:   32:        /* If no swaps, array is sorted */
+     2020:   33:        if (!swapped) {
+        8:   34:            break;
+        -:   35:        }
+     2012:   36:    }
+        -:   37:
+       14:   38:    return NUMILIB_SUCCESS;
+       18:   39:}
+        -:   40:
+       32:   41:int gauss_eliminate(double **A, double *b, size_t n, double *x)
+        -:   42:{
+        -:   43:    /* Check for NULL pointers when n > 0 */
+       32:   44:    if (n > 0) {
+       30:   45:        if (A == NULL || b == NULL || x == NULL) {
+        6:   46:            return NUMILIB_ERR_NULL_PTR;
+        -:   47:        }
+       24:   48:    }
+        -:   49:    /* Check n range */
+       26:   50:    if (n == 0 || n > 16) {
+        4:   51:        return NUMILIB_ERR_INVALID_N;
+        -:   52:    }
+        -:   53:
+        -:   54:    /* Forward elimination with partial pivoting */
+       88:   55:    for (size_t col = 0; col < n; col++) {
+        -:   56:        /* Find pivot row: max absolute value in column col from row col to n-1 */
+       70:   57:        size_t pivot_row = col;
+       70:   58:        double max_val = A[col][col] >= 0 ? A[col][col] : -A[col][col];
+      336:   59:        for (size_t row = col + 1; row < n; row++) {
+      266:   60:            double val = A[row][col] >= 0 ? A[row][col] : -A[row][col];
+      266:   61:            if (val > max_val) {
+        4:   62:                max_val = val;
+        4:   63:                pivot_row = row;
+        4:   64:            }
+      266:   65:        }
+        -:   66:
+        -:   67:        /* Check if pivot is too small (singular matrix) */
+       70:   68:        if (max_val < 1e-12) {
+        4:   69:            return NUMILIB_ERR_SINGULAR;
+        -:   70:        }
+        -:   71:
+        -:   72:        /* Swap current row with pivot row if needed */
+       66:   73:        if (pivot_row != col) {
+        -:   74:            /* Swap rows in A */
+        4:   75:            double *temp_A = A[col];
+        4:   76:            A[col] = A[pivot_row];
+        4:   77:            A[pivot_row] = temp_A;
+        -:   78:            /* Swap elements in b */
+        4:   79:            double temp_b = b[col];
+        4:   80:            b[col] = b[pivot_row];
+        4:   81:            b[pivot_row] = temp_b;
+        4:   82:        }
+        -:   83:
+        -:   84:        /* Eliminate below */
+      328:   85:        for (size_t row = col + 1; row < n; row++) {
+      262:   86:            double factor = A[row][col] / A[col][col];
+     3034:   87:            for (size_t inner_col = col; inner_col < n; inner_col++) {
+     2772:   88:                A[row][inner_col] -= factor * A[col][inner_col];
+     2772:   89:            }
+      262:   90:            b[row] -= factor * b[col];
+      262:   91:        }
+       66:   92:    }
+        -:   93:
+        -:   94:    /* Back substitution */
+       84:   95:    for (size_t row = 0; row < n; row++) {
+        -:   96:        /* Start from last row and move upwards */
+       66:   97:        size_t i = n - row - 1;
+       66:   98:        double sum = b[i];
+      328:   99:        for (size_t j = i + 1; j < n; j++) {
+      262:  100:            sum -= A[i][j] * x[j];
+      262:  101:        }
+        -:  102:        /* Check for division by zero (should not happen if pivot check passed) */
+       66:  103:        if (A[i][i] == 0.0) {
+        -:  104:            /* This should not be reached due to pivot check, but for safety */
+    #####:  105:            return NUMILIB_ERR_SINGULAR;
+        -:  106:        }
+       66:  107:        x[i] = sum / A[i][i];
+       66:  108:    }
+        -:  109:
+       18:  110:    return NUMILIB_SUCCESS;
+       32:  111:}

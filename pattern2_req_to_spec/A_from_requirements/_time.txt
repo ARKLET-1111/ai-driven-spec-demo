@@ -1,0 +1,1 @@
+opencode run --agent plan -m openrouter/nvidia/nemotron-3-super-120b-a12b  <   29.77s user 2.36s system 18% cpu 2:52.18 total

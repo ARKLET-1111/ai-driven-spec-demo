@@ -1,0 +1,14 @@
+# local
+.venv/
+_install.log
+_ref/
+build/
+*.gcda
+*.gcno
+*.gcov
+!pattern3_impl/tests/coverage/raw/*.gcov
+pattern3_impl/tests/coverage/*
+!pattern3_impl/tests/coverage/raw/
+# 閲覧用（成果物ではない）
+index.html
+_sidebar.md

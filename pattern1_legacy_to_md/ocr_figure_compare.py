@@ -33,3 +33,19 @@ try:
     print(f"-- {len(lines)} 行, {time.time()-t:.1f}s")
 except Exception as e:
     print("失敗:", type(e).__name__, e)
+
+print()
+print("=== tesseract (jpn+eng, CLI) ===")
+import shutil, subprocess
+if not shutil.which("tesseract"):
+    print("未導入: brew install tesseract tesseract-lang")
+else:
+    for psm in ("3", "6"):
+        t = time.time()
+        r = subprocess.run(["tesseract", str(png), "stdout", "-l", "jpn+eng", "--psm", psm],
+                           capture_output=True, text=True)
+        lines = [l for l in r.stdout.splitlines() if l.strip()]
+        print(f"--- psm {psm} ---")
+        for l in lines:
+            print(f"[    ] {l}")
+        print(f"-- {len(lines)} 行, {time.time()-t:.1f}s")

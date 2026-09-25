@@ -48,3 +48,17 @@ Nemotron-3-Super は画像を読めない。文字と表だけなら OCR は不�
 | クラウド OCR | 有料 | 最高 | **出る** | **✕** |
 
 使い方：安い OCR で文字を抜き、必要なら Gemma 3 で図の意味を説明させ、Nemotron に本文と突き合わせて Mermaid に書き直させる。**どの方式でも記号・添字は人が一度見る。** 実測したのは Apple Vision と EasyOCR のみで、他は要検証。
+
+## 変換ツールの選択肢
+
+| 選択肢 | 出どころ | 外部に出るか | 評価 |
+|---|---|---|---|
+| **Docling** | IBM（Apache-2.0） | 出ない | ◎ 主に使う。PPT の箇条書き・表・図の扱いが最も安定 |
+| **MarkItDown** | Microsoft（MIT） | 出ない | ○ 軽い。Excel はシート名が残るのでこちら。PPT は箇条書きが消え、セル内の `\|` で表が崩れる（実測） |
+| Unstructured | 米（Apache-2.0） | 出ない | 未検証（依存が重い） |
+| 自作（python-pptx / openpyxl） | OSS | 出ない | 細かく制御できるが毎回手間 |
+| Pandoc | OSS | 出ない | ✕ PPT は読めない |
+| MinerU / PP-Structure | 中国 | 出ない | ✕ 中華系 |
+| クラウド系 | 各社 | **出る** | ✕ |
+
+実測比較は [NOTES.md](../pattern1_legacy_to_md/NOTES.md)。

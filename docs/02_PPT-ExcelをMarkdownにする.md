@@ -1,6 +1,6 @@
 # PowerPoint / Excel の仕様書を Markdown にする
 
-すべて手元の PC の中で完結し、資料は外に出ない。詳しい結果と注意は [詳細版](https://github.com/ARKLET-1111/ai-driven-spec-demo/blob/main/docs/)。
+すべて手元の PC の中で完結し、資料は外に出ない。実測の記録は [pattern1_legacy_to_md/NOTES.md](../pattern1_legacy_to_md/NOTES.md)。
 
 ## 結論
 

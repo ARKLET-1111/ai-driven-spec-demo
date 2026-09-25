@@ -15,4 +15,4 @@
 3. Claude との差は**量と丁寧さ**で、正しさの差ではない。埋まらなかった穴は実装のテスト・カバレッジで受け止める（→ [pattern3_impl](../pattern3_impl/)）
 
 注記：A・B の実行時、OpenCode がリポジトリの AGENTS.md を自動で読み込んでいた（痕跡が確認できたのは B の §9・§8。関数仕様・試験観点の評価には影響なし）。A2 は別ディレクトリで実行し混入なし。
-生成物：各フォルダの `spec_nemotron.md` / `spec_claude.md`。詳しい採点表は [詳細版](https://github.com/ARKLET-1111/ai-driven-spec-demo/blob/main/pattern2_req_to_spec/COMPARISON.md)。
+生成物：各フォルダの `spec_nemotron.md` / `spec_claude.md`。採点は 8 観点（章立て／関数仕様 6 点／数値の具体性／試験観点／マーカー／図／誤り・矛盾／実装に使えるか）で行った。

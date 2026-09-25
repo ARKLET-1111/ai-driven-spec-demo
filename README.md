@@ -1,7 +1,5 @@
 # ai-driven-spec-demo — AI駆動開発に使える仕様書の作り方
 
-> 要点版。経緯・数字・ハマりどころを全部書いた詳細版は [ai-driven-spec-demo](https://github.com/ARKLET-1111/ai-driven-spec-demo)（現在は非公開）。
-
 手書き（PowerPoint / Excel）の仕様書を、オンプレのローカルLLM（**Nemotron-3-Super ＋ OpenCode**）がそのまま実装・単体試験に使える形にする方法。実際に動かした入力・出力・ログをすべて置いている（2026-09-24〜25 実施）。
 
 ## 結論（3行）

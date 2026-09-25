@@ -1,6 +1,7 @@
-"""図（PNG）の中の文字を、中華系でないOCRエンジン2種で直接読み比べる。
+"""図（PNG）の中の文字を、中華系でないOCRエンジン3種で直接読み比べる。
 - ocrmac  : Apple Vision（macOS標準・ローカル・追加ダウンロードなし）
 - easyocr : JaidedAI（タイ）。モデルは GitHub から取得。Linux/Windows でも動く
+- tesseract: Google 発の OSS。Linux/Windows の第一候補（Mac に無ければ Docker の Debian で実行）
 Docling の既定 RapidOCR（PaddleOCR系・中国）は先方NGのため使わない。
 """
 import sys, time

@@ -47,7 +47,7 @@ Nemotron-3-Super は画像を読めない。文字と表だけなら OCR は不�
 | NVIDIA の文書読み取りモデル | 無料（GPU） | 英語中心。要検証 | 出ない | ○ |
 | クラウド OCR | 有料 | 最高 | **出る** | **✕** |
 
-使い方：安い OCR で文字を抜き、必要なら Gemma 3 で図の意味を説明させ、Nemotron に本文と突き合わせて Mermaid に書き直させる。**どの方式でも記号・添字は人が一度見る。** 実測したのは Apple Vision・EasyOCR・Tesseract（順位はこの順）。Gemma 3 と NVIDIA のモデルは要検証。
+使い方：安い OCR で文字を抜き、必要なら Gemma 3 で図の意味を説明させ、Nemotron に本文と突き合わせて Mermaid に書き直させる。**どの方式でも記号・添字は人が一度見る。** 実測したのは Apple Vision・Tesseract・EasyOCR（精度の順位は Apple Vision ≧ Tesseract ＞ EasyOCR）。Gemma 3 と NVIDIA のモデルは要検証。
 
 ## 変換ツールの選択肢
 

@@ -1,6 +1,6 @@
 # AGENTS.md（リポジトリ全体）
 
-このリポジトリは「AI駆動開発で使える仕様書の作り方」のデモ。3段構成：
+このリポジトリは「AI駆動開発に使える仕様書の作り方」のデモ。3段構成：
 
 1. `pattern1_legacy_to_md/` … 既存の PowerPoint / Excel 仕様書 → Markdown（Docling）
 2. `pattern2_req_to_spec/` … 要件 or 既存資料 → AIが仕様書を書く（Nemotron-3-Super と Claude の比較）

@@ -1,4 +1,4 @@
-<!-- この仕様書は Nemotron-3-Super（OpenRouter 経由、OpenCode plan エージェント）が pattern2_req_to_spec/prompts/A_要件から仕様書.md の指示で生成したものを、人手を一切加えずにコピーしたもの。生成: 2026-09-24 13:13〜13:16（2分51秒、入力15,671 / 出力3,099 / 推論691 トークン、$0.003）。既知の要確認点は pattern2_req_to_spec/COMPARISON.md を参照 -->
+<!-- この仕様書は Nemotron-3-Super（OpenRouter 経由、OpenCode plan エージェント）が pattern2_req_to_spec/prompts/A_要件から仕様書.md の指示で生成したものを、人手を一切加えずにコピーしたもの。生成: 2026-09-24 13:13〜13:16（2分52秒、入力15,671 / 出力3,099 / 推論691 トークン、$0.003）。既知の要確認点は pattern2_req_to_spec/COMPARISON.md を参照 -->
 
 # numlib 仕様書
 

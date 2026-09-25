@@ -1,0 +1,21 @@
+Unable to find image 'debian:bookworm-slim' locally
+bookworm-slim: Pulling from library/debian
+333125b5cee9: Pulling fs layer
+333125b5cee9: Download complete
+Digest: sha256:3783cc01769c7b2b1b83a5c5ad96c815348e28ed7da68e2e3687004faa906251
+Status: Downloaded newer image for debian:bookworm-slim
+=== tesseract 5.3.0 / Debian 12.15 / aarch64 / Linux コンテナ ===
+--- psm 3 ---
+1. 開始 (k=0)
+2.列kでla[lk]| が最大の行 p を選ぶ ( 部分ピボット選択 )
+3. lalp]Ik| < EPS(1e-12) ? > Yes: E_SINGULAR(-2) を返して終了
+4.行kと行pを入れ替える(aとbの両方 )
+5. 47 k を alk][k] で割って正規化 ( 対角成分を 1 にする )
+6. 他のすべての行 はk から alilk] x (行 k) を引く
+7.k=k+ 1。k<n なら 2 へ戻る
+8. x[i] = bf] を出力して 0 を返す
+6-1   し法 ( ガウスの消去法 ) の処理フロー ※ EPS は 1e-12 同定
+-- .314100459 s
+--- psm 6 ---
+図6-1 ta  し法 ( ガカウスの消去法 ) の処理フロー ※ EPS は 1e-12 固定
+-- .144194167 s

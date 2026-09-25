@@ -38,7 +38,7 @@ print()
 print("=== tesseract (jpn+eng, CLI) ===")
 import shutil, subprocess
 if not shutil.which("tesseract"):
-    print("未導入: brew install tesseract tesseract-lang")
+    print("未導入。Mac で brew が使えない場合は Docker で: docker run --rm -v \"$PWD/input:/w:ro\" debian:bookworm-slim bash -c 'apt-get update -qq && apt-get install -y -qq tesseract-ocr tesseract-ocr-jpn && tesseract /w/_flow_gauss.png stdout -l jpn+eng --psm 3'")
 else:
     for psm in ("3", "6"):
         t = time.time()

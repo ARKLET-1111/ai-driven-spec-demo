@@ -15,6 +15,7 @@
 | 図PNG | Docling経由のOCR（どのエンジンでも） | — | 図全体が「Picture」と判定され**文字はMDに出ない** |
 | 図PNG | OCRを直接実行（Apple Vision / ocrmac） | 0.5秒 | 日本語の文は正確。**数式・添字（`|a[i][k]|` → `1allIk］`）は崩れる** |
 | 図PNG | OCRを直接実行（EasyOCR ja+en, CPU） | 3.7秒 | 行が分断され誤字が多い（選沢／入れ着える／固足）。Linux/Windows での現実的な下限 |
+| 図PNG | OCRを直接実行（**Tesseract 5.3.0**、Debian 12 の Linux コンテナ、`-l jpn+eng --psm 3`） | 0.3秒 | **8工程すべてを文として読めた。** 記号（`|a[i][k]|`→`la[lk]|`）と一部の語（行→47、固定→同定、≠→は）が崩れる。`--psm 6` は見出し1行しか取れず不可。GPU・torch 不要で Linux の第一候補 |
 
 詳細: `output/_flow_gauss.ocr.txt`
 
@@ -27,7 +28,7 @@
 ## 未検証・次にやること
 - [ ] 図 → Mermaid 変換をAI（Nemotron）にやらせて品質を見る
 - [ ] Excel 内に貼られた画像／セル結合の多い表（実資料で起こりがち）
-- [ ] Tesseract（jpn）の精度。先方環境が Linux/Windows の場合の第一候補
+- [x] Tesseract（jpn）の精度 → 上表（2026-09-25、Docker の Debian で実測。Mac 側は Homebrew が Xcode 更新を要求して入らず）
 - [ ] granite-docling-258M（IBM のVLM）で図を直接読めるか。日本語は実験的サポートのため期待値は低い
 
 ## 変換ツールの比較：Docling vs MarkItDown（2026-09-25 追加）

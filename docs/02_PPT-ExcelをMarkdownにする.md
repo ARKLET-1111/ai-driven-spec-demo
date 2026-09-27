@@ -38,13 +38,13 @@ docling 関数一覧.xlsx --to md --output out/
 
 Nemotron-3-Super は画像を読めない。文字と表だけなら OCR は不要。図を読むときは別のものを使う。
 
-| 選択肢 | 費用 | 日本語 | 外部に出るか | 先方環境で |
+| 選択肢 | 費用 | 日本語 | 外部に出るか | オンプレ環境で |
 |---|---|---|---|---|
 | **Tesseract**（HP が開発し、のちに Google が支援した OSS） | 無料 | 中〜高（実測 0.3 秒：文は読めるが記号と一部の語が崩れる） | 出ない | ◎ Linux/Windows の第一候補。GPU 不要 |
 | **EasyOCR**（OSS） | 無料 | 中〜低（実測：誤字あり） | 出ない | ○ |
 | Apple Vision | 無料 | 高（実測：記号は崩れる） | 出ない | △ Mac 限定 |
-| RapidOCR / PaddleOCR（中国） | 無料 | 高 | 出ない | **✕ 中華系。Docling の既定** |
-| **Gemma 3**（Google・画像対応） | 無料（GPU） | 図の意味まで説明できる。要検証 | 出ない | ◎ DGX Spark に同居できる見込み |
+| RapidOCR / PaddleOCR（中国） | 無料 | 高 | 出ない | **対象外（中国製）。Docling の既定** |
+| **Gemma 3**（Google・画像対応） | 無料（GPU） | 図の意味まで説明できる。要検証 | 出ない | ◎ Nemotron と同じ機械に同居できる見込み |
 | NVIDIA の文書読み取りモデル | 無料（GPU） | 英語中心。要検証 | 出ない | ○ |
 | クラウド OCR | 有料 | 最高 | **出る** | **✕** |
 
@@ -59,7 +59,7 @@ Nemotron-3-Super は画像を読めない。文字と表だけなら OCR は不�
 | Unstructured | 米（Apache-2.0） | 出ない | 未検証（依存が重い） |
 | 自作（python-pptx / openpyxl） | OSS | 出ない | 細かく制御できるが毎回手間 |
 | Pandoc | OSS | 出ない | ✕ PPT は読めない |
-| MinerU / PP-Structure | 中国 | 出ない | ✕ 中華系 |
+| MinerU / PP-Structure | 中国 | 出ない | 対象外（中国製） |
 | クラウド系 | 各社 | **出る** | ✕ |
 
 実測比較は [NOTES.md](../pattern1_legacy_to_md/NOTES.md)。

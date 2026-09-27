@@ -19,16 +19,16 @@
 
 詳細: `output/_flow_gauss.ocr.txt`
 
-## 先方に伝えるべき知見
+## 分かったこと
 1. **テキストと表が入っている資料は、OCRなしで一瞬でMD化できる**（Docling。IBM製OSS、Apache-2.0、完全ローカル）
-2. **Doclingの既定OCRは RapidOCR（PaddleOCR系・中国製。モデルを modelscope.cn から取得）**。何も指定せず画像やスキャンPDFを通すと中華系エンジンが走る。`--ocr-engine` で明示的に切り替えること（Mac: `ocrmac`、Linux/Windows: `easyocr` か `tesseract`）
+2. **Doclingの既定OCRは RapidOCR（PaddleOCR系・中国製。モデルを modelscope.cn から取得）**。何も指定せず画像やスキャンPDFを通すと、このエンジンが動く。`--ocr-engine` で明示的に切り替えること（Mac: `ocrmac`、Linux/Windows: `easyocr` か `tesseract`）
 3. 図の中の文字は「Doclingで場所を特定 → OCRを直接かけて図の下に追記」の2段構え。**数式や添字は人が確認する前提**。図は最終的に Mermaid で書き直させる方が確実（AIに図を読ませるより、図の意味を文章で渡す）
 4. 画像を base64 で埋め込む既定出力（139KB）はAIに渡すには重い。`--image-export-mode referenced` で外部ファイルにする
 
 ## 未検証・次にやること
 - [ ] 図 → Mermaid 変換をAI（Nemotron）にやらせて品質を見る
 - [ ] Excel 内に貼られた画像／セル結合の多い表（実資料で起こりがち）
-- [x] Tesseract（jpn）の精度 → 上表（2026-09-25、Docker の Debian で実測。Mac 側は Homebrew が Xcode 更新を要求して入らず）
+- [x] Tesseract（jpn）の精度 → 上表（2026-09-25、Docker の Debian で実測）
 - [ ] granite-docling-258M（IBM のVLM）で図を直接読めるか。日本語は実験的サポートのため期待値は低い
 
 ## 変換ツールの比較：Docling vs MarkItDown（2026-09-25 追加）
@@ -47,5 +47,5 @@
 | Excel セル内の改行 | 空白に平坦化 | `\n` の文字がそのまま残る |
 | PDF | レイアウト解析モデルあり（未検証） | テキスト抽出のみ |
 
-**結論**: PowerPoint は Docling が安全（表・箇条書き・図の扱いで優位）。Excel は MarkItDown の方がシート名が残る分だけ良い。どちらもローカル完結・無料・中華系ではない。**主に Docling、Excel だけ MarkItDown**、が今回の推奨。
+**結論**: PowerPoint は Docling が安全（表・箇条書き・図の扱いで優位）。Excel は MarkItDown の方がシート名が残る分だけ良い。どちらもローカル完結・無料で、中国製ではない。**主に Docling、Excel だけ MarkItDown**、が今回の推奨。
 

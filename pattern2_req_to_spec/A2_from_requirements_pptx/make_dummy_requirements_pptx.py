@@ -1,4 +1,4 @@
-"""ダミーの「要件定義書（PowerPoint）」を作る。先方が要件定義もパワポで持っている想定。
+"""ダミーの「要件定義書（PowerPoint）」を作る。要件定義もパワポで持っている想定。
 実在の製品・顧客とは無関係。numlib（バブルソート・掃き出し法）の要件を R-xx / N-xx の ID 付きで書く。"""
 from pathlib import Path
 from pptx import Presentation

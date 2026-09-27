@@ -15,7 +15,8 @@
 ```bash
 # 準備（1回）
 pip install docling                  # IBM 製 OSS・Apache-2.0
-pip install easyocr                  # 図の文字を読む用（Mac は pip install ocrmac）
+# 図の文字を読む用（文字と表だけなら不要）
+sudo apt install tesseract-ocr tesseract-ocr-jpn   # Linux。Mac は pip install ocrmac
 
 # 変換（画像は外部ファイルに出す。base64 埋め込みだと MD が巨大になる）
 docling 仕様書.pptx --to md --image-export-mode referenced --output out/
@@ -39,8 +40,8 @@ Nemotron-3-Super は画像を読めない。文字と表だけなら OCR は不�
 
 | 選択肢 | 費用 | 日本語 | 外部に出るか | 先方環境で |
 |---|---|---|---|---|
-| **Tesseract**（Google 発 OSS） | 無料 | 中〜高（実測 0.3 秒：文は読めるが記号と一部の語が崩れる） | 出ない | ◎ Linux/Windows の第一候補。GPU 不要 |
-| **EasyOCR**（タイ発 OSS） | 無料 | 中〜低（実測：誤字あり） | 出ない | ○ |
+| **Tesseract**（HP が開発し、のちに Google が支援した OSS） | 無料 | 中〜高（実測 0.3 秒：文は読めるが記号と一部の語が崩れる） | 出ない | ◎ Linux/Windows の第一候補。GPU 不要 |
+| **EasyOCR**（OSS） | 無料 | 中〜低（実測：誤字あり） | 出ない | ○ |
 | Apple Vision | 無料 | 高（実測：記号は崩れる） | 出ない | △ Mac 限定 |
 | RapidOCR / PaddleOCR（中国） | 無料 | 高 | 出ない | **✕ 中華系。Docling の既定** |
 | **Gemma 3**（Google・画像対応） | 無料（GPU） | 図の意味まで説明できる。要検証 | 出ない | ◎ DGX Spark に同居できる見込み |

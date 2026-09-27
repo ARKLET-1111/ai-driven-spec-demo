@@ -31,7 +31,7 @@
 [0.71] ※ EPS は 1e-12 固足
 -- 17 行, 4.9s
 
-（Tesseract は macOS 側に入らなかったため、Docker の debian:bookworm-slim に Debian 公式パッケージを入れて実行。先方想定の Linux 環境に近い条件）
+（Tesseract は Docker の debian:bookworm-slim に Debian 公式パッケージを入れて実行。Linux 環境での結果）
 === tesseract 5.3.0 / Debian 12.15 / aarch64 / Linux コンテナ ===
 --- psm 3 ---
 1. 開始 (k=0)

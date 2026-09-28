@@ -14,7 +14,7 @@
 
 ```bash
 # 準備（1回）
-pip install docling                  # IBM 製 OSS・Apache-2.0
+pip install docling                  # IBM 製 OSS・MIT
 # 図の文字を読む用（文字と表だけなら不要）
 sudo apt install tesseract-ocr tesseract-ocr-jpn   # Linux。Mac は pip install ocrmac
 
@@ -31,7 +31,10 @@ docling 関数一覧.xlsx --to md --output out/
 
 ## 注意
 
-- **Docling の既定 OCR は中国製（RapidOCR）**で、初回に中国のサーバーからモデルを取得する。文字と表だけなら OCR は動かないが、画像・スキャン PDF を通すときは必ず `--ocr-engine` を指定する（Mac: `ocrmac`、Linux/Windows: `easyocr` か `tesseract`）
+- **Docling に PDF や画像を渡すと、OCR が自動で選ばれる。何も指定しないと、Linux / Windows では RapidOCR（中国製）が選ばれる。** 中国製を使わない場合は、必ず `--ocr-engine` を指定する（Mac: `ocrmac`、Linux/Windows: `tesseract` か `easyocr`）
+- RapidOCR は、Docling を入れると一緒に入る。動くと、初回に中国のサーバー（modelscope.cn）からモデルを取得する。読み取りは PC の中で行われる
+- PowerPoint / Excel を渡すときは、OCR は動かない
+- 自動で選ばれる順番（Docling 2.130.0 のソースコードで確認）：Mac は Apple の OCR（`ocrmac` が入っている場合）→ Linux は NVIDIA の Nemotron OCR（入っている場合。今回は未検証）→ RapidOCR → EasyOCR。Mac で画像を渡して Apple の OCR が選ばれること、PowerPoint で OCR が選ばれないことは実行して確認した。Linux / Windows での実行は未確認
 - ネットに繋がらない環境へは、ネットのある PC で `pip download docling`（画像も扱うなら OCR モデルも）を取得して持ち込む
 
 ## OCR の選択肢（図・スキャン PDF を読むとき）
@@ -43,7 +46,7 @@ Nemotron-3-Super は画像を読めない。文字と表だけなら OCR は不�
 | **Tesseract**（HP が開発し、のちに Google が支援した OSS） | 無料 | 中〜高（実測 0.3 秒：文は読めるが記号と一部の語が崩れる） | 出ない | ◎ Linux/Windows の第一候補。GPU 不要 |
 | **EasyOCR**（OSS） | 無料 | 中〜低（実測：誤字あり） | 出ない | ○ |
 | Apple Vision | 無料 | 高（実測：記号は崩れる） | 出ない | △ Mac 限定 |
-| RapidOCR / PaddleOCR（中国） | 無料 | 高 | 出ない | **対象外（中国製）。Docling の既定** |
+| RapidOCR / PaddleOCR（中国） | 無料 | 高 | 出ない | **対象外（中国製）。Docling と一緒に入り、指定しないと Linux / Windows で選ばれる** |
 | **Gemma 3**（Google・画像対応） | 無料（GPU） | 図の意味まで説明できる。要検証 | 出ない | ◎ Nemotron と同じ機械に同居できる見込み |
 | NVIDIA の文書読み取りモデル | 無料（GPU） | 英語中心。要検証 | 出ない | ○ |
 | クラウド OCR | 有料 | 最高 | **出る** | **✕** |
@@ -54,7 +57,7 @@ Nemotron-3-Super は画像を読めない。文字と表だけなら OCR は不�
 
 | 選択肢 | 出どころ | 外部に出るか | 評価 |
 |---|---|---|---|
-| **Docling** | IBM（Apache-2.0） | 出ない | ◎ 主に使う。PPT の箇条書き・表・図の扱いが最も安定 |
+| **Docling** | IBM（MIT） | 出ない | ◎ 主に使う。PPT の箇条書き・表・図の扱いが最も安定 |
 | **MarkItDown** | Microsoft（MIT） | 出ない | ○ 軽い。Excel はシート名が残るのでこちら。PPT は箇条書きが消え、セル内の `\|` で表が崩れる（実測） |
 | Unstructured | 米（Apache-2.0） | 出ない | 未検証（依存が重い） |
 | 自作（python-pptx / openpyxl） | OSS | 出ない | 細かく制御できるが毎回手間 |

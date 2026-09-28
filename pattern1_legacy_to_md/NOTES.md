@@ -20,8 +20,8 @@
 詳細: `output/_flow_gauss.ocr.txt`
 
 ## 分かったこと
-1. **テキストと表が入っている資料は、OCRなしで一瞬でMD化できる**（Docling。IBM製OSS、Apache-2.0、完全ローカル）
-2. **Doclingの既定OCRは RapidOCR（PaddleOCR系・中国製。モデルを modelscope.cn から取得）**。何も指定せず画像やスキャンPDFを通すと、このエンジンが動く。`--ocr-engine` で明示的に切り替えること（Mac: `ocrmac`、Linux/Windows: `easyocr` か `tesseract`）
+1. **テキストと表が入っている資料は、OCRなしで一瞬でMD化できる**（Docling。IBM製OSS、MIT、完全ローカル）
+2. **Docling に PDF や画像を渡すと OCR が自動で選ばれ、何も指定しないと Linux / Windows では RapidOCR（PaddleOCR系・中国製。モデルを modelscope.cn から取得）が選ばれる**。RapidOCR は Docling を入れると一緒に入る。Mac は Apple の OCR が先に選ばれる（Docling 2.130.0 のソースコードと、Mac での実行で確認。Linux / Windows での実行は未確認）。`--ocr-engine` で明示的に切り替えること（Mac: `ocrmac`、Linux/Windows: `tesseract` か `easyocr`）。PowerPoint / Excel を渡すときは OCR は動かない
 3. 図の中の文字は「Doclingで場所を特定 → OCRを直接かけて図の下に追記」の2段構え。**数式や添字は人が確認する前提**。図は最終的に Mermaid で書き直させる方が確実（AIに図を読ませるより、図の意味を文章で渡す）
 4. 画像を base64 で埋め込む既定出力（139KB）はAIに渡すには重い。`--image-export-mode referenced` で外部ファイルにする
 

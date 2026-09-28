@@ -42,7 +42,7 @@ PowerPoint / Excel ──(Docling)──▶ Markdown ──(Nemotron)──▶ �
 
 ## 注意
 
-1. Docling の既定 OCR は中国製（RapidOCR）。画像・スキャン PDF を読むときはエンジンを明示する（Mac: `ocrmac`、Linux/Windows: `easyocr` / `tesseract`）。文字と表だけなら OCR は動かない
+1. Docling に PDF や画像を渡すと、OCR が自動で選ばれる。何も指定しないと、Linux / Windows では RapidOCR（中国製）が選ばれる。中国製を使わない場合は `--ocr-engine tesseract` のようにエンジンを明示する（Mac: `ocrmac`、Linux/Windows: `tesseract` / `easyocr`）。PowerPoint / Excel を渡すときは OCR は動かない
 2. 仕様書の穴はコードの穴になる。AI が書いた仕様書は「シグネチャ」と「無意味な項目」だけ人が見る。今回は、意味のない試験項目と、定数名の綴りずれ（`NUMILIB_`）がそのままコードに入った
 3. AI の完了報告は楽観的（今回も「1 回で完了」と報告したが実際は 5 回目。警告 4 件も残った）。試験とカバレッジは固定の Makefile で人が再実行する
 4. 数値はクラウド経由。実資料は使っていない（すべてダミー）

@@ -2,7 +2,7 @@
 - ocrmac  : Apple Vision（macOS標準・ローカル・追加ダウンロードなし）
 - easyocr : JaidedAI。モデルは GitHub から取得。Linux/Windows でも動く
 - tesseract: HP が開発し、のちに Google が支援した OSS。Linux/Windows の第一候補（Mac に無ければ Docker の Debian で実行）
-Docling の既定 RapidOCR（PaddleOCR系・中国製）は、今回の前提では使わない。
+Docling と一緒に入る RapidOCR（PaddleOCR系・中国製）は、今回の前提では使わない。
 """
 import sys, time
 from pathlib import Path
